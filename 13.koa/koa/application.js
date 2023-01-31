@@ -19,26 +19,32 @@ class Application {
     const ctx = Object.create(this.context);
     const request = Object.create(this.request);
     const response = Object.create(this.response);
-    ctx.req = req;
-    ctx.res = res;
 
     // koa 扩展的属性
     ctx.request = request;
     ctx.response = response;
 
     // 保证this的指向
-    ctx.request.req = req;
-    ctx.request.res = res;
-
+    ctx.req = ctx.request.req = ctx.response.req = req;
+    ctx.res = ctx.request.res = ctx.response.res = res;
+    ctx.context = ctx;
+    ctx.app = this;
     return ctx;
   }
 
   handleRequest = (req, res) => {
     // 创建请求隔离， 每一次请求都是独立的, 不会出现复用的属性
     const ctx = this.createContext(req, res);
-
     // 请求实现
+    res.statusCode = 404;
+
     this.middleware(ctx);
+    let body = ctx.body;
+    if (typeof body === "string" || Buffer.isBuffer(body)) {
+      res.end(body);
+    } else {
+      res.end("Not Found");
+    }
   };
 
   listen(...args) {

@@ -10,8 +10,13 @@ app.use(function (ctx, next) {
   console.log(ctx.path); // 原生的koa对象
   console.log(ctx.header);
   console.log(ctx.headers);
+  ctx.body = null;
 });
 
 app.listen(3000, function () {
   console.log("server start 3000");
 }); // http,createServer().listen()
+
+// koa的特点
+// 特点1: 实现对req和res的封装;
+// 特点2: 洋葱模型
