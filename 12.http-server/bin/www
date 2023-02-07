@@ -1,0 +1,13 @@
+#! /usr/bin/env node
+
+const { program } = require("commander");
+const pkg = require("../package.json");
+// 实现一个静态服务器
+program
+  .name("zi-server")
+  .version(pkg.version)
+  .description("CLI yo some javascript string utilities")
+  .option("-p, --port <v>", "set port");
+program.parse(process.argv);
+const options = program.opts();
+console.log(options);

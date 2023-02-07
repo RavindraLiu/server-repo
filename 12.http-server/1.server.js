@@ -1,5 +1,4 @@
 const http = require("http");
-const { Transform } = require("stream");
 const url = require("url");
 
 // server.on(‘request') 当有请求的时候执行此回到函数
@@ -33,6 +32,7 @@ const server = http.createServer(function (req, res) {
   res.statusMessage = "custom";
   //   res.setHeader("content-type", "text/plain;charset=utf-8");
   //   Transfer-encoding: chunk 用来表示此http有多长, 用来分割http请求的
+
   res.end("中文"); // 响应结束了，浏览器认为这次的事务完成了
 });
 
